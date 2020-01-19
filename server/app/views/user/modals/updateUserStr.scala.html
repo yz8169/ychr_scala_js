@@ -1,0 +1,116 @@
+@()(implicit request: RequestHeader)
+<style>
+		.icon2x {
+			width: 24px;
+			font-size: 20px;
+			min-width: 24px;
+			display: inline-block;
+		}
+
+		.myInline .form-group {
+			margin-right: 5px;
+			margin-left: 5px;
+		}
+
+		.myInline {
+			margin-bottom: 15px;
+		}
+
+		.myInline .form-control {
+			width: 70px;
+		}
+
+		.myInline .myLabel {
+			font-weight: bold;
+		}
+
+		.myModal {
+			font-size: 12px;
+		}
+
+		.myModal h5 {
+			font-size: 12px;
+		}
+
+		.myModal .form-control {
+			font-size: 12px;
+		}
+
+		.myModal input[type="radio"], input[type="checkbox"] {
+			margin: 3px 0 0;
+			margin-left: 0px;
+			margin-top: 1px \9;
+			line-height: normal;
+		}
+
+		.myModal h3 {
+			font-size: 18px;
+		}
+
+		.myModal .form-group {
+			margin-bottom: 10px;
+		}
+
+		.myModal .form-control{
+			height: 32px;
+		}
+
+		.myModal textarea.form-control {
+			height: auto;
+		}
+
+
+</style>
+
+<div id="updateUserStrModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 600px">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">
+					<i class="fa fa-edit"></i>
+					<span id="lblAddTitle" style="font-weight: bold">修改单倍型</span>
+				</h4>
+			</div>
+			<form class="form-horizontal" id="form"
+			data-toggle="validator" method="post" >
+				<div class="modal-body">
+					<div class="row-fluid">
+						<input class="form-control" name="missionId" type="hidden"/>
+
+						<div class="form-group">
+							<label class="control-label col-sm-4">样本编号:</label>
+							<div class="col-sm-6">
+								<input class="form-control" name="number" readonly/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-4">单倍型:</label>
+							<div class="col-sm-6">
+								<select class="form-control" name="kind" style="border-radius: 4px;">
+								</select>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="modal-footer bg-info">
+					<input type="hidden" id="id" name="id" />
+					<button type="button" class="btn blue" onclick="UpdateUserStr.update">
+						确定</button>
+					<button type="button" class="btn green" data-dismiss="modal">
+						取消</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+		$(function () {
+			UpdateUserStr.init
+
+		})
+</script>

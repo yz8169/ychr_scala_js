@@ -1,0 +1,202 @@
+@()(implicit request: RequestHeader)
+@main("STR进化速率设置")("weightManage") {
+	<style>
+			.icon2x {
+				width: 24px;
+				font-size: 20px;
+				min-width: 24px;
+				display: inline-block;
+			}
+
+			.myInline .form-group {
+				margin-right: 5px;
+				margin-left: 5px;
+			}
+
+			.myInline {
+				margin-bottom: 15px;
+			}
+
+			.myInline .form-control {
+				width: 70px;
+			}
+
+			.myInline .myLabel {
+				font-weight: bold;
+			}
+
+
+	</style>
+
+
+	<div class="page-content">
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-wrench"></i>
+					<a href="">STR进化速率设置</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="row-fluid">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-madison box">
+						<div class="portlet-title">
+							<div class="caption">
+								STR进化速率设置
+							</div>
+						</div>
+
+						<div class="portlet-body form">
+
+							<div class="table-responsive">
+
+								<table class="display table table-bordered" id="table" data-pagination="true" data-search="true"
+								data-toolbar="#toolbar" data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true">
+									<thead>
+										<tr>
+											<th data-field="siteName" data-sortable="true">STR位点名</th>
+											<th data-field="value" data-sortable="true" >进化速率</th>
+											<th data-field="operate" data-formatter="operateFmt">操作</th>
+										</tr>
+									</thead>
+								</table>
+
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div id="updateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 650px">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">
+							<i class="fa fa-edit"></i>
+							<span id="lblAddTitle" style="font-weight: bold">设置进化速率</span>
+						</h4>
+					</div>
+					<form class="form-horizontal" id="updateForm" action="" data-toggle="validator">
+						<div class="modal-body">
+							<div class="row-fluid">
+
+								<div class="form-group">
+									<label class="control-label col-sm-3">位点名:</label>
+									<div class="col-sm-6">
+										<input class="form-control" name="siteName" readonly/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-3">进化速率:</label>
+									<div class="col-sm-6">
+										<input class="form-control" name="value" id="value" />
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="modal-footer bg-info">
+							<input type="hidden" id="id" name="id" />
+							<button type="button" class="btn blue" onclick="update()">
+								确定</button>
+							<button type="button" class="btn green" data-dismiss="modal">
+								取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+			$(function () {
+				$.ajax({
+					url: "@routes.WeightController.getAllWeight()",
+					type: "get",
+					dataType: "json",
+					success: function (data) {
+						$('#table').bootstrapTable({
+							data: data
+						});
+					}
+				})
+
+				bootstrapValidator()
+
+			})
+
+			function update() {
+				var form = $("#updateForm")
+				var fv = form.data("bootstrapValidator")
+				fv.validate()
+				if (fv.isValid()) {
+					$.ajax({
+						url: "@routes.WeightController.updateWeight()",
+						type: "post",
+						data: $("#updateForm").serialize(),
+						success: function (data) {
+							$("#updateModal").modal("hide")
+							fv.resetForm(true)
+							swal("成功！", "进化速率修改成功！", "success")
+							$('#table').bootstrapTable("load", data);
+						}
+					});
+				}
+			}
+
+			function operateFmt(value, row, index) {
+				return " <a title='修改' onclick=\"updateShow('" + row.siteName + "')\" style='cursor: pointer;'><span><em class='fa fa-edit'></em></span></a>"
+
+			}
+
+			function updateShow(siteName) {
+				$.ajax({
+					url: "@routes.WeightController.getWeightBySiteName()?siteName=" + siteName,
+					type: "get",
+					success: function (data) {
+						$("#updateForm input[name='siteName']").val(data.siteName)
+						$("#updateForm input[name='value']").val(data.value)
+						$("#updateForm").bootstrapValidator("revalidateField", "value")
+						$("#updateModal").modal("show")
+					}
+				});
+			}
+
+			function bootstrapValidator() {
+				$('#updateForm').bootstrapValidator({
+					framework: 'bootstrap',
+					excluded: [':disabled'],
+					icon: {
+						valid: 'glyphicon glyphicon-ok',
+						invalid: 'glyphicon glyphicon-remove',
+						validating: 'glyphicon glyphicon-refresh'
+					},
+					fields: {
+						value: {
+							validators: {
+								numeric: {
+									message: '进化速率必须是实数！'
+								},
+							}
+						},
+					}
+				});
+
+			}
+
+
+	</script>
+
+}

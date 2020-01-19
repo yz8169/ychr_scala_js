@@ -1,0 +1,337 @@
+@()(implicit request: RequestHeader)
+@main("数据管理")("manageData") {
+	<style>
+			.icon2x {
+				width: 24px;
+				font-size: 20px;
+				min-width: 24px;
+				display: inline-block;
+			}
+
+			.myInline .form-group {
+				margin-right: 5px;
+				margin-left: 5px;
+			}
+
+			.myInline {
+				margin-bottom: 15px;
+			}
+
+			.myInline .form-control {
+				width: 70px;
+			}
+
+			.myInline .myLabel {
+				font-weight: bold;
+			}
+			.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+				border-top-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+			}
+
+	</style>
+
+
+	<div class="page-content">
+
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-user"></i>
+					<a href="">数据管理</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="row-fluid">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-madison box">
+						<div class="portlet-title" >
+							<div class="caption" style="cursor: pointer;
+								width: 98%" onclick="DataManage.expand(this)">
+								数据查找
+							</div>
+							<div class="tools">
+								<a class="expand" id="removeClick" disabled="true"></a>
+							</div>
+						</div>
+
+						<div class="portlet-body form portlet-collapsed" id="search" style="display: none">
+
+							<form id="form" class=" " accept-charset="UTF-8" method="post" style="margin-top: 0px;">
+								<input type="hidden" value="@request.session.get("userId")" name="userId">
+
+								<div class="form-body form-horizontal">
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">样本类型:</label>
+										<div class="col-sm-3">
+											<select class="form-control" name="sampleTypes[]"
+											style="border-radius: 4px;
+												width: 100%" id="sampleType" >
+											</select>
+										</div>
+										<label class="control-label col-sm-2">性别:</label>
+										<div class="col-sm-3">
+											<select class="form-control" name="sexs[]" id="sex"
+											style="border-radius: 4px;
+												width: 100%">
+											</select>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">出生日期:</label>
+										<div class="col-sm-2">
+											<input class="form-control datepicker" readonly="readonly" name="startDate"
+											value=""
+											id="datePicker" placeholder="开始">
+										</div>
+										<div class="col-sm-2">
+											<input class="form-control datepicker" readonly="readonly" name="endDate"
+											value=""
+											id="datePicker" placeholder="截止">
+										</div>
+									</div>
+
+									<div id="moreInfo">
+
+										<div class="form-group">
+											<label class="control-label col-sm-2">国籍/地区:</label>
+											<div class="col-sm-3">
+												<select name="countries[]" id="country" class="checkbox form-control country"
+												style="width: 100%"></select>
+
+											</div>
+											<label class="control-label col-sm-2">民族:</label>
+											<div class="col-sm-3">
+												<select name="nations[]" id="nation" class="checkbox form-control"
+												style="width: 100%"></select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="actions col-sm-offset-2 col-sm-2">
+												<button type="button" class="btn btn-primary" style="width: 90%;"
+												id="search" onclick="DataManage.search">
+													运行</button>
+											</div>
+										</div>
+
+
+									</div>
+
+								</div>
+
+							</form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-madison box">
+						<div class="portlet-title">
+							<div class="caption">
+								数据管理
+							</div>
+						</div>
+
+						<div class="portlet-body form">
+
+							<div class="table-responsive">
+
+								<div id="toolbar">
+
+									<div class="actions">
+										<div class="btn-group">
+											<a class="btn  btn-primary idsButton" disabled="disabled" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+												 操作
+												<i class="fa fa-angle-down"></i>
+											</a>
+											<ul class="dropdown-menu pull-right">
+												<li>
+													<a href="javascript:;" onclick="DataManage.deleteAllInfos">
+														<i class="glyphicon glyphicon-trash"></i> 删除选中数据</a>
+												</li>
+												<li class="divider"> </li>
+												<li>
+													<a href="javascript:;" onclick="DataManage.strAddBatch">
+														<i class="fa fa-plus"></i>&nbsp;STR批量入库
+													</a>
+												</li>
+
+												<li>
+													<a href="javascript:;" onclick="DataManage.strBatchRefresh">
+														<i class="fa fa-refresh"></i>&nbsp;STR批量刷新
+													</a>
+												</li>
+												<li class="divider"> </li>
+
+												<li>
+													<a href="javascript:;" onclick="DataManage.snpAddBatch">
+														<i class="fa fa-plus"></i>&nbsp;SNP批量入库
+													</a>
+												</li>
+
+												<li>
+													<a href="javascript:;" onclick="DataManage.snpBatchRefresh">
+														<i class="fa fa-refresh"></i>&nbsp;SNP批量刷新
+													</a>
+												</li>
+
+												<li class="divider"> </li>
+
+												<li>
+													<a href="javascript:;" onclick="DataManage.downloadData">
+														<i class="fa fa-download"></i>&nbsp;导出选中数据
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+
+								</div>
+
+								<table class="display table table-bordered" id="table" data-pagination="true" data-search="true"
+								data-toolbar="#toolbar" data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true"
+								>
+									<thead>
+										<tr>
+											<th data-field="state" data-checkbox="true"></th>
+											<th data-field="number" data-sortable="true" data-formatter="DataManage.numberFmt">
+												样本编号</th>
+											<th data-field="unit" data-sortable="true">鉴定委托单位</th>
+											<th data-field="name" data-sortable="true">人员姓名</th>
+											<th data-field="strKitName" >STR试剂盒</th>
+											<th data-field="inferSnpKitName" data-formatter="DataManage.inferFmt">
+												STR推SNP单倍型</th>
+											<th data-field="inferSnpKitName" data-formatter="DataManage.detailFmt">
+												STR推断详情</th>
+											<th data-field="snpKitName" >SNP试剂盒</th>
+											<th data-field="inferSnpKitName" data-formatter="DataManage.snpInferFmt">
+												SNP推断详情</th>
+
+											<th data-field="operate" data-formatter="DataManage.operateFmt">操作</th>
+										</tr>
+									</thead>
+								</table>
+
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="addSnpModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 600px">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">
+							<i class="fa fa-plus"></i>
+							<span id="lblAddTitle" style="font-weight: bold">添加SNP数据入库</span>
+						</h4>
+					</div>
+					<form class="form-horizontal" id="form"
+					data-toggle="validator" method="post" >
+						<div class="modal-body">
+							<div class="row-fluid">
+								<input class="form-control" name="missionId" type="hidden"/>
+
+								<div class="form-group">
+									<label class="control-label col-sm-4">样本编号:</label>
+									<div class="col-sm-6">
+										<input class="form-control" name="number" readonly/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-4">SNP试剂盒名称:</label>
+									<div class="col-sm-6">
+										<input class="form-control" name="kind" style="border-radius: 4px;" readonly/>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="modal-footer bg-info">
+							<input type="hidden" id="id" name="id" />
+							<button type="button" class="btn blue" onclick="DataManage.addSnp2Db">
+								确定</button>
+							<button type="button" class="btn green" data-dismiss="modal">
+								取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+	@user.modals.strInferDetail()
+	@user.modals.snpInferDetail()
+	@user.modals.detailInfo()
+	@user.modals.updateInfo()
+	@user.modals.updateUserStr()
+	@user.modals.addUserStr()
+
+
+	<script>
+			$(function () {
+
+				DataManage.init
+
+			})
+
+
+			$(function () {
+				$('#nameTable').bootstrapTable()
+				$('#addressTable').bootstrapTable()
+				$('#nationTable').bootstrapTable()
+
+			})
+
+
+			function deleteData(number) {
+				swal({
+							title: "",
+							text: "确定要删除此数据吗？",
+							type: "warning",
+							showCancelButton: true,
+							showConfirmButton: true,
+							confirmButtonClass: "btn-danger",
+							confirmButtonText: "确定",
+							closeOnConfirm: false,
+							cancelButtonText: "取消"
+						},
+						function () {
+							$.ajax({
+								url: "@routes.UserDataController.deleteDataByNumber()?number=" + number,
+								type: "get",
+								success: function (data) {
+									$('#table').bootstrapTable("load", data);
+									swal("成功！", "删除成功！", "success")
+								}
+							});
+						});
+			}
+
+
+	</script>
+
+}

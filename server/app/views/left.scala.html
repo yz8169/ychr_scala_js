@@ -1,0 +1,84 @@
+@(id: String)
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+		<ul class="page-sidebar-menu " data-auto-scroll="true" data-slide-speed="200" id="projects">
+
+			<li class="sidebar-toggler-wrapper">
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+				<div class="sidebar-toggler">
+				</div>
+					<!-- END SIDEBAR TOGGLER BUTTON -->
+			</li>
+			<li style="height: 10px"></li>
+
+			<li id='loadData'>
+				<a href='@routes.UserDataController.loadDataBefore()'>
+					<i class='fa fa-cloud-upload'></i>
+					<span class='title'>数据导入</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li id='loadDataByFile'>
+				<a href='@routes.UserDataController.loadDataByFileBefore()'>
+					<i class='fa fa-upload'></i>
+					<span class='title'>批量导入</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li id='manageData'>
+				<a href='@routes.UserDataController.manageDataBefore()'>
+					<i class='fa fa-user'></i>
+					<span class='title'>数据管理</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li id='userStrDataManage'>
+				<a href='@routes.UserStrDataController.manageBefore()'>
+					<i class='fa fa-database'></i>
+					<span class='title'>STR入库数据管理</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li id='userSnpDataManage'>
+				<a href='@routes.UserSnpDataController.manageBefore()'>
+					<i class='fa fa-database'></i>
+					<span class='title'>SNP入库数据管理</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li >
+				<a href='@routes.UserDataController.downloadData()' target="_blank">
+					<i class='fa fa-download'></i>
+					<span class='title'>导出全部数据</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+			<li id='passwordChange'>
+				<a href='@routes.UserController.changePasswordBefore()'>
+					<i class='fa fa-key'></i>
+					<span class='title'>密码修改</span>
+					<span class='selected'></span>
+				</a>
+			</li>
+
+
+
+		</ul>
+	</div>
+</div>
+<script>
+		$(function () {
+			var menuContainer = jQuery('.page-sidebar ul');
+			menuContainer.children('li.active').removeClass('active');
+			$("#" + "@id").addClass('active')
+
+
+		})
+
+</script>

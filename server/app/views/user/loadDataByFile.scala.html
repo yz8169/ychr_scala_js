@@ -1,0 +1,213 @@
+@()(implicit request: RequestHeader)
+	@main("批量导入")("loadDataByFile") {
+		<style>
+				.icon2x {
+					width: 24px;
+					font-size: 20px;
+					min-width: 24px;
+					display: inline-block;
+				}
+
+				.myInline .form-group {
+					margin-right: 5px;
+					margin-left: 5px;
+				}
+
+				.myInline {
+					margin-bottom: 15px;
+				}
+
+				.myInline .form-control {
+					width: 70px;
+				}
+
+				.myInline .myLabel {
+					font-weight: bold;
+				}
+
+
+		</style>
+
+
+		<div class="page-content">
+
+			<div class="page-bar">
+				<ul class="page-breadcrumb">
+					<li>
+						<i class="fa fa-upload"></i>
+						<a href="">批量导入</a>
+					</li>
+				</ul>
+			</div>
+
+
+			<div class="row-fluid">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="portlet blue-madison box">
+							<div class="portlet-title">
+								<div class="caption">
+									批量导入
+								</div>
+							</div>
+
+							<div class="portlet-body form">
+
+								<form id="form" class=" " accept-charset="UTF-8" method="post" style="margin-top: 30px;">
+
+
+									<div class="form-body form-horizontal">
+										<h3 class="form-section">基本信息</h3>
+
+										<div class="form-group">
+											<label class="control-label col-sm-2">数据文件（xlsx）:</label>
+											<div class="col-sm-8">
+												<input id="input-1" type="file" class="file control-label" name="basicInfoFile" data-show-preview="false"
+												data-show-upload="false" accept=".xlsx" multiple >
+												<span class="help-block"><a href="@routes.UserDataController.download()?fileName=basic_info.xlsx"><em>
+													Example file</em></a></span>
+											</div>
+										</div>
+
+										<h3 class="form-section">Y-STR数据</h3>
+
+										<div class="form-group">
+											<label class="control-label col-sm-2">数据文件（dat, txt）:</label>
+											<div class="col-sm-8">
+												<input id="input-1" type="file" class="file control-label" name="strFile" data-show-preview="false"
+												data-show-upload="false" accept=".dat,.txt" multiple >
+												<span class="help-block"><em>
+													Example: <a href="@routes.UserDataController.download()?fileName=str.dat">dat file</a>;
+													<a href="@routes.UserDataController.download()?fileName=str.txt">txt file</a>
+												</em></span>
+											</div>
+										</div>
+
+
+										<h3 class="form-section">Y-SNP数据</h3>
+
+										<div class="form-group">
+											<label class="control-label col-sm-2">数据文件（dat, txt）:</label>
+											<div class="col-sm-8">
+												<input id="input-1" type="file" class="file control-label" name="snpFile" data-show-preview="false"
+												data-show-upload="false" accept=".dat,.txt" multiple >
+												<span class="help-block"><em>
+													Example: <a href="@routes.UserDataController.download()?fileName=snp.dat">dat file</a>;
+														<a href="@routes.UserDataController.download()?fileName=snp.txt">txt file</a>
+												</em></span>
+											</div>
+										</div>
+
+
+										<div class="form-group form-horizontal">
+											<div class="actions col-sm-offset-2 col-sm-2">
+												<button type="button" class="btn btn-primary" style="width: 90%;" id="search" onclick="myRun()">
+													提交</button>
+											</div>
+										</div>
+
+
+									</div>
+
+								</form>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+				$(function () {
+					bootstrapValidator()
+				})
+
+				$(".file").fileinput({
+					showPreview: false,
+					browseLabel: "选择...",
+					removeLabel: "删除文件",
+					language: "zh"
+				});
+
+				function myRun() {
+					var form = $("#form")
+					var form1 = new FormData($("#form")[0])
+					var fv = form.data("bootstrapValidator")
+					fv.validate()
+					if (fv.isValid()) {
+						var element = "<div id='content'><span id='info'>正在导入中... 请勿关闭此页面!</span>&nbsp;<img class='runningImage' src='/assets/images/running2.gif' style='width: 30px;height: 20px;'></div>"
+						var index = layer.alert(element, {
+							skin: 'layui-layer-molv'
+							, closeBtn: 0,
+							title: "信息",
+							btn: []
+						});
+						$.ajax({
+							url: "@routes.UserDataController.loadDataByFile()",
+							type: "post",
+							processData: false,
+							contentType: false,
+							data: form1,
+							success: function (data) {
+							    layer.close(index)
+								if (!data.valid) {
+									swal("Error", data.message, "error")
+								} else {
+									swal("成功！", "数据上传成功！", "success")
+								}
+							}
+						});
+
+					}
+
+
+				}
+
+				function bootstrapValidator() {
+					$('#form').bootstrapValidator({
+						framework: 'bootstrap',
+						icon: {
+							valid: 'glyphicon glyphicon-ok',
+							invalid: 'glyphicon glyphicon-remove',
+							validating: 'glyphicon glyphicon-refresh'
+						},
+						fields: {
+							basicInfoFile: {
+								validators: {
+									file: {
+										extension: 'xls,xlsx',
+										message: '基本信息数据文件格式不正确！'
+									}
+								}
+							},
+							strFile: {
+								validators: {
+									file: {
+										extension: 'dat,txt',
+										message: 'STR数据文件格式不正确！'
+									}
+								}
+							},
+							snpFile: {
+								validators: {
+									file: {
+										extension: 'dat,txt',
+										message: 'SNP数据文件格式不正确！'
+									}
+								}
+							},
+
+
+						}
+
+					});
+				}
+
+
+		</script>
+
+	}

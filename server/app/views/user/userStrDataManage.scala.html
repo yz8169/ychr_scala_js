@@ -1,0 +1,99 @@
+@()(implicit request: RequestHeader)
+@main("STR入库数据管理")("userStrDataManage") {
+	<style>
+			.icon2x {
+				width: 24px;
+				font-size: 20px;
+				min-width: 24px;
+				display: inline-block;
+			}
+
+			.myInline .form-group {
+				margin-right: 5px;
+				margin-left: 5px;
+			}
+
+			.myInline {
+				margin-bottom: 15px;
+			}
+
+			.myInline .form-control {
+				width: 70px;
+			}
+
+			.myInline .myLabel {
+				font-weight: bold;
+			}
+
+
+	</style>
+
+
+	<div class="page-content">
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-database"></i>
+					<a href="">STR入库数据管理</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="row-fluid">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-madison box">
+						<div class="portlet-title">
+							<div class="caption">
+								STR入库数据管理
+							</div>
+						</div>
+
+						<div class="portlet-body form">
+
+							<div id="toolbar">
+								<button type="button" class="btn btn-primary idsButton"  disabled="disabled"
+								onclick="UserStrDataManage.deletes">
+									<i class="glyphicon glyphicon-trash"></i>&nbsp;批量出库
+								</button>
+							</div>
+
+							<div class="table-responsive" id="tableContent">
+								<table class="display table table-bordered" id="table" data-pagination="true" data-search="true"
+								data-toolbar="#toolbar" data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true">
+									<thead>
+										<tr>
+											<th data-field='number' >样本编号</th>
+											<th data-field='kind' data-sortable='true' id="marker">单倍型</th>
+											<th data-field="operate" data-formatter="operateFmt" >操作</th>
+										</tr>
+									</thead>
+								</table>
+
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	@user.modals.detailInfo()
+
+	<script>
+			$(function () {
+				UserStrDataManage.init
+
+			})
+
+
+
+	</script>
+
+}

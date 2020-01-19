@@ -1,0 +1,187 @@
+@()(implicit request: RequestHeader)
+<style>
+		.icon2x {
+			width: 24px;
+			font-size: 20px;
+			min-width: 24px;
+			display: inline-block;
+		}
+
+		.myInline .form-group {
+			margin-right: 5px;
+			margin-left: 5px;
+		}
+
+		.myInline {
+			margin-bottom: 15px;
+		}
+
+		.myInline .form-control {
+			width: 70px;
+		}
+
+		.myInline .myLabel {
+			font-weight: bold;
+		}
+
+		.myModal {
+			font-size: 12px;
+		}
+
+		.myModal h5 {
+			font-size: 12px;
+		}
+
+		.myModal .form-control {
+			font-size: 12px;
+		}
+
+		.myModal input[type="radio"], input[type="checkbox"] {
+			margin: 3px 0 0;
+			margin-left: 0px;
+			margin-top: 1px \9;
+			line-height: normal;
+		}
+
+
+</style>
+
+<div id="strStatModal" class="modal fade myModal">
+	<div class="modal-dialog" style="width: 1000px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-hidden="true" class="close">
+							&times;</button>
+				<h4 class="modal-title">
+					STR推断详情(<span id="number"></span>)</h4>
+			</div>
+			<div class="modal-body">
+
+
+				<div class="table-responsive" id="tableContent">
+					<table class="display table table-bordered" id="table" data-pagination="true" data-search="true"
+					data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true"
+					>
+						<thead>
+						</thead>
+					</table>
+
+				</div>
+				<hr>
+
+
+				<ul id="myTab" class="nav nav-tabs">
+					<li class="active"><a href="#name" data-toggle="tab">
+						姓氏统计</a></li>
+					<li><a href="#address" data-toggle="tab">地理统计</a></li>
+					<li><a href="#myNation" data-toggle="tab">民族统计</a></li>
+
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade in active" id="name">
+						<div style="margin-top: 15px">
+							<h5>说明：选取了前100条记录，拥有姓氏信息的记录条数为<span id="recordsNum"></span>。</h5>
+							<div class="row">
+								<div class="col-sm-6">
+									<div id="container" style="width: 400px;
+										height: 400px;"></div>
+
+								</div>
+								<div class="col-sm-6">
+									<table class="display table table-bordered" id="nameTable" data-pagination="true" data-search="true"
+									data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true">
+										<thead>
+											<tr>
+												<th data-field="name" >姓氏</th>
+												<th data-field="num" >条数</th>
+												<th data-field="percent" >占比</th>
+											</tr>
+										</thead>
+									</table>
+
+								</div>
+
+							</div>
+
+
+						</div>
+					</div>
+					<div class="tab-pane fade" id="address">
+						<div>
+							<h5>说明：选取了前100条记录，拥有地理信息的记录条数为<span id="recordsNum"></span>。</h5>
+
+							<div class="row">
+								<div class="col-sm-6">
+									<div id="container" style="width: 400px;
+										height: 400px;"></div>
+
+								</div>
+								<div class="col-sm-6">
+									<table class="display table table-bordered" id="addressTable" data-pagination="true" data-search="true"
+									data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true">
+										<thead>
+											<tr>
+												<th data-field="address" >地理</th>
+												<th data-field="num" >条数</th>
+												<th data-field="percent" >占比</th>
+											</tr>
+										</thead>
+									</table>
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+					</div>
+					<div class="tab-pane fade" id="myNation">
+						<div>
+							<h5>说明：选取了前100条记录，拥有民族信息的记录条数为<span id="recordsNum"></span>。</h5>
+
+							<div class="row">
+								<div class="col-sm-6">
+									<div id="container" style="width: 400px;
+										height: 400px;"></div>
+
+								</div>
+								<div class="col-sm-6">
+									<table class="display table table-bordered" id="nationTable" data-pagination="true" data-search="true"
+									data-page-list="[10, 25, 50, 100, all]" data-multiple-search="true">
+										<thead>
+											<tr>
+												<th data-field="nation" >民族</th>
+												<th data-field="num" >条数</th>
+												<th data-field="percent" >占比</th>
+											</tr>
+										</thead>
+									</table>
+
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default ">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+		$(function () {
+			StrInferDetail.init
+
+
+		})
+</script>

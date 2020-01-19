@@ -1,0 +1,114 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET         /                                                controllers.UserController.loginBefore
+
+GET         /yChr/app/sendMessage                            controllers.AppController.sendMessage
+POST        /yChr/app/validCode                              controllers.AppController.validCode
+POST        /yChr/app/toIndex                                controllers.AppController.toIndex
+POST        /yChr/app/login                                  controllers.AppController.login
+GET         /yChr/app/recoverPasswordBefore                  controllers.AppController.recoverPasswordBefore
+POST        /yChr/app/validName                              controllers.AppController.validName
+POST        /yChr/app/newPasswordBefore                      controllers.AppController.newPasswordBefore
+POST        /yChr/app/newPassword                            controllers.AppController.newPassword
+
+GET         /yChr/user/loginBefore                           controllers.UserController.loginBefore
+GET         /yChr/user/missionManageBefore                   controllers.UserController.missionManageBefore
+GET         /yChr/user/logout                                controllers.UserController.logout
+GET         /yChr/user/changePasswordBefore                  controllers.UserController.changePasswordBefore
+POST        /yChr/user/changePassword                        controllers.UserController.changePassword
+GET         /yChr/user/searchBefore                          controllers.UserController.searchBefore
+
+GET         /yChr/user/userData/loadDataBefore               controllers.UserDataController.loadDataBefore
+POST        /yChr/user/userData/loadData                     controllers.UserDataController.loadData
+POST        /yChr/user/userData/numberCheck                  controllers.UserDataController.numberCheck
+GET         /yChr/user/userData/manageDataBefore             controllers.UserDataController.manageDataBefore
+GET         /yChr/user/userData/getAllBasicInfo              controllers.UserDataController.getAllBasicInfo
+GET         /yChr/user/userData/getBasicInfo                 controllers.UserDataController.getBasicInfo
+GET         /yChr/user/userData/deleteDataByNumber           controllers.UserDataController.deleteDataByNumber
+POST        /yChr/user/userData/deleteDataByNumbers          controllers.UserDataController.deleteDataByNumbers
+GET         /yChr/user/userData/updateDataBefore             controllers.UserDataController.updateDataBefore
+POST        /yChr/user/userData/updateData                   controllers.UserDataController.updateData
+GET         /yChr/user/userData/detailInfoBefore             controllers.UserDataController.detailInfoBefore
+GET         /yChr/user/userData/getStrJson                   controllers.UserDataController.getStrJson
+GET         /yChr/user/userData/getSnpJson                   controllers.UserDataController.getSnpJson
+GET         /yChr/user/userData/loadDataByFileBefore         controllers.UserDataController.loadDataByFileBefore
+POST        /yChr/user/userData/loadDataByFile               controllers.UserDataController.loadDataByFile
+GET         /yChr/user/userData/download                     controllers.UserDataController.download
+GET         /yChr/user/userData/strInferDetailBefore         controllers.UserDataController.strInferDetailBefore
+GET         /yChr/user/userData/getStrInferData              controllers.UserDataController.getStrInferData
+GET         /yChr/user/userData/getAllSnpKitNames            controllers.UserDataController.getAllSnpKitNames
+GET         /yChr/user/userData/getAllPanel                  controllers.UserDataController.getAllPanel
+GET         /yChr/user/userData/getNameInfo                  controllers.UserDataController.getNameInfo
+GET         /yChr/user/userData/getAdressInfo                controllers.UserDataController.getAdressInfo
+GET         /yChr/user/userData/getNationInfo                controllers.UserDataController.getNationInfo
+GET         /yChr/user/userData/getSnpNationInfo             controllers.UserDataController.getSnpNationInfo
+GET         /yChr/user/userData/getSnpInfo                   controllers.UserDataController.getSnpInfo
+POST        /yChr/user/userData/search                       controllers.UserDataController.search
+GET         /yChr/user/userData/downloadData                 controllers.UserDataController.downloadData
+POST        /yChr/user/userData/getDownloadData              controllers.UserDataController.getDownloadData
+
+GET         /yChr/admin/weight/weightManageBefore            controllers.WeightController.weightManageBefore
+GET         /yChr/admin/weight/getAllWeight                  controllers.WeightController.getAllWeight
+POST        /yChr/admin/weight/updateWeight                  controllers.WeightController.updateWeight
+
+GET         /yChr/user/weight/getWeightBySiteName            controllers.WeightController.getWeightBySiteName
+
+GET         /yChr/user/userStrData/manageBefore              controllers.UserStrDataController.manageBefore
+POST        /yChr/user/userStrData/add2Db                    controllers.UserStrDataController.add2Db
+GET         /yChr/user/userStrData/getAllUserStrDb           controllers.UserStrDataController.getAllUserStrDb
+GET         /yChr/user/userStrData/deleteDataByNumber        controllers.UserStrDataController.deleteDataByNumber
+GET         /yChr/user/userStrData/numberCheck               controllers.UserStrDataController.numberCheck
+GET         /yChr/user/userStrData/refreshStrInfer           controllers.UserStrDataController.refreshStrInfer
+GET         /yChr/user/userStrData/getStrData                controllers.UserStrDataController.getStrData
+GET         /yChr/user/userStrData/getUserStrData            controllers.UserStrDataController.getUserStrData
+POST        /yChr/user/userStrData/addBatch                  controllers.UserStrDataController.addBatch
+POST        /yChr/user/userStrData/deletes                   controllers.UserStrDataController.deletes
+GET         /yChr/user/userStrData/batchRefresh              controllers.UserStrDataController.batchRefresh
+
+GET         /yChr/user/userSnpData/numberCheck               controllers.UserSnpDataController.numberCheck
+POST        /yChr/user/userSnpData/add2Db                    controllers.UserSnpDataController.add2Db
+GET         /yChr/user/userSnpData/inferDetailBefore         controllers.UserSnpDataController.inferDetailBefore
+GET         /yChr/user/userSnpData/getInferData              controllers.UserSnpDataController.getInferData
+GET         /yChr/user/userSnpData/getSnpData                controllers.UserSnpDataController.getSnpData
+GET         /yChr/user/userSnpData/manageBefore              controllers.UserSnpDataController.manageBefore
+GET         /yChr/user/userSnpData/getAllUserSnpDb           controllers.UserSnpDataController.getAllUserSnpDb
+GET         /yChr/user/userSnpData/deleteDataByNumber        controllers.UserSnpDataController.deleteDataByNumber
+GET         /yChr/user/userSnpData/refreshSnpStat            controllers.UserSnpDataController.refreshSnpStat
+POST        /yChr/user/userSnpData/addBatch                  controllers.UserSnpDataController.addBatch
+POST        /yChr/user/userSnpData/deletes                   controllers.UserSnpDataController.deletes
+GET         /yChr/user/userSnpData/batchRefresh              controllers.UserSnpDataController.batchRefresh
+
+GET         /yChr/admin/userManageBefore                     controllers.AdminController.userManageBefore
+GET         /yChr/admin/logout                               controllers.AdminController.logout
+GET         /yChr/admin/changePasswordBefore                 controllers.AdminController.changePasswordBefore
+POST        /yChr/admin/changePassword                       controllers.AdminController.changePassword
+GET         /yChr/admin/getAllUser                           controllers.AdminController.getAllUser
+GET         /yChr/admin/deleteUserById                       controllers.AdminController.deleteUserById
+POST        /yChr/admin/addUser                              controllers.AdminController.addUser
+GET         /yChr/admin/getUserById                          controllers.AdminController.getUserById
+POST        /yChr/admin/userNameCheck                        controllers.AdminController.userNameCheck
+POST        /yChr/admin/phoneCheck                           controllers.AdminController.phoneCheck
+GET         /yChr/admin/strDb/manageBefore                   controllers.StrDbController.manageBefore
+GET         /yChr/admin/downloadData                         controllers.AdminController.downloadData
+GET         /yChr/admin/strDbManageBefore                    controllers.AdminController.strDbManageBefore
+GET         /yChr/admin/getAllStrDb                          controllers.AdminController.getAllStrDb
+GET         /yChr/admin/downloadStrDb                        controllers.AdminController.downloadStrDb
+POST        /yChr/admin/updateStrDb                          controllers.AdminController.updateStrDb
+
+GET         /yChr/dataInsert/insert                          controllers.DataInsertController.insertStrDb
+
+GET         /javascriptRoutes                                controllers.AppController.javascriptRoutes
+
+
+# An example controller showing how to use dependency injection
+GET         /count                                           controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET         /message                                         controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                                    controllers.Assets.at(path="/public", file)
+      
